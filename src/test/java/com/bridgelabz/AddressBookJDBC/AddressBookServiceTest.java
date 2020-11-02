@@ -24,4 +24,11 @@ public class AddressBookServiceTest {
 		boolean result=addressBookService.addressBookSyncWithDB("iceila");
 		Assert.assertTrue(result);
 	}
+	
+	@Test
+	public void givenAddressDB_WhenRetreivedByCityOrState_ShouldReturnCount() {
+		AddressBookService addressBookService = new AddressBookService();
+		List<AddressBookData> addressList = addressBookService.readAddressData(AddressBookService.IOService.DB_IO,"Kolkata","Delhi");
+		Assert.assertEquals(4, addressList.size());
+	}
 }

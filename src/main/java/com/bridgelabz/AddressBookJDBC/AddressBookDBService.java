@@ -41,6 +41,24 @@ public class AddressBookDBService {
 		String sql="SELECT * FROM address_book;";
 		return this.readQuery(sql);
 	}
+	
+	public List<AddressBookData> readByStateOrCity(String city, String state) {
+		String sql="SELECT * FROM address_book where city=? or state=?;";
+		return this.readQuery(sql,city,state);
+	}
+
+	private List<AddressBookData> readQuery(String sql, String city, String state) {
+		try(Connection conn=this.getConnection()) {
+			PreparedStatement statement=conn.prepareStatement(sql);
+			statement.setString(1, city);
+			statement.setString(2, state);
+			ResultSet result=statement.executeQuery();
+			return this.getAddressList(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	private List<AddressBookData> readQuery(String sql) {
 		try(Connection conn=this.getConnection()) {

@@ -19,27 +19,31 @@ public class AddressBookService {
 			this.addressList = addressDBService.read();
 		return this.addressList;
 	}
-	
+
+	public List<AddressBookData> readAddressData(IOService ioService, String city, String state) {
+		if (ioService.equals(IOService.DB_IO))
+			this.addressList = addressDBService.readByStateOrCity(city, state);
+		return this.addressList;
+	}
+
 	public void updateAddressBook(String firstName, String address, int zip) {
-		int result=addressDBService.updateData(firstName,address,zip);
+		int result = addressDBService.updateData(firstName, address, zip);
 		if (result == 0) {
 			System.out.println("No Updation");
 			return;
 		}
-		AddressBookData addressData=this.getAddressData(firstName);
-		if(addressData!=null)
-			addressData.address=address;
+		AddressBookData addressData = this.getAddressData(firstName);
+		if (addressData != null)
+			addressData.address = address;
 	}
 
 	private AddressBookData getAddressData(String firstName) {
-		return this.addressList.stream()
-				.filter(addressDataItem -> addressDataItem.firstName.equals(firstName))
-				.findFirst()
-				.orElse(null);
+		return this.addressList.stream().filter(addressDataItem -> addressDataItem.firstName.equals(firstName))
+				.findFirst().orElse(null);
 	}
-	
+
 	public boolean addressBookSyncWithDB(String name) {
-		List<AddressBookData> addressList=addressDBService.getAddressList(name);
+		List<AddressBookData> addressList = addressDBService.getAddressList(name);
 		return addressList.get(0).equals(getAddressData(name));
 	}
 
