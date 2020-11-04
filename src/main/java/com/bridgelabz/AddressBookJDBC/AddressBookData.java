@@ -1,21 +1,22 @@
 package com.bridgelabz.AddressBookJDBC;
 
+import java.util.Objects;
+
 public class AddressBookData {
 
-	private int addressId;
+	public int addressId;
 	public String firstName;
-	private String lastName;
+	public String lastName;
 	public String address;
-	private String city;
-	private String state;
-	private int zip;
-	private int phone;
-	private String email;
-	private String type;
+	public String city;
+	public String state;
+	public int zip;
+	public int phone;
+	public String email;
+	public String type;
 
-	public AddressBookData(int addressId, String firstName, String lastName, String address, String city, String state,
+	public AddressBookData(String firstName, String lastName, String address, String city, String state,
 			int zip, int phone, String email, String type) {
-		this.addressId = addressId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -32,6 +33,12 @@ public class AddressBookData {
 		this.firstName = firstName;
 		this.address = address;
 		this.zip = zip;
+	}
+	
+	
+	@Override 
+	public int hashCode() {
+		return Objects.hash(firstName,address,zip);
 	}
 
 	@Override
