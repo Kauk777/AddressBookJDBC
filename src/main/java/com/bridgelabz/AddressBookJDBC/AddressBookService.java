@@ -1,6 +1,7 @@
 package com.bridgelabz.AddressBookJDBC;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,11 @@ public class AddressBookService {
 
 	public AddressBookService() {
 		addressDBService = AddressBookDBService.getInstance();
+	}
+	
+	public AddressBookService(List<AddressBookData> addressList) {
+		this();
+		this.addressList=new ArrayList<>(addressList);
 	}
 
 	public List<AddressBookData> readAddressData(IOService ioService) {
@@ -79,11 +85,19 @@ public class AddressBookService {
 	}
 
 	public void addAddressData(String firstName, String lastName, String address, String city, String state, int zip, int phone, String email, String type) {
-		addressList.add(addressDBService.addData(firstName,lastName,address,city,state,zip,phone,email,type));
+		this.addressList.add(addressDBService.addData(firstName,lastName,address,city,state,zip,phone,email,type));
+	}
+	
+	public void addAddressToBook(AddressBookData addressData, IOService ioService) {
+		if(ioService.equals(IOService.REST_IO))
+			addressList.add(addressData);
+		
 	}
 
 	public long countEntries(IOService ioService) {
-		return addressList.size();
+		return this.addressList.size();
 	}
+
+	
 
 }

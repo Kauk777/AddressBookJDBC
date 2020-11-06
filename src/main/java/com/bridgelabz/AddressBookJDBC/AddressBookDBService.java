@@ -147,8 +147,7 @@ public class AddressBookDBService {
 				ResultSet result = statement.getGeneratedKeys();
 				if (result.next())
 					addressId = result.getInt(1);
-
-				addressData = new AddressBookData(firstName, lastName, address, city, state, zip, phone, email, type);
+				addressData = new AddressBookData(addressId,firstName, lastName, address, city, state, zip, phone, email, type);
 			}
 
 		} catch (SQLException e) {

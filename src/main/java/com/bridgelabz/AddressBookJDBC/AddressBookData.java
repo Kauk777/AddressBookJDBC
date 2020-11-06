@@ -15,8 +15,15 @@ public class AddressBookData {
 	public String email;
 	public String type;
 
-	public AddressBookData(String firstName, String lastName, String address, String city, String state,
+	public AddressBookData(int addressId,String firstName, String lastName, String address, String city, String state,
 			int zip, int phone, String email, String type) {
+		this(addressId,firstName,lastName,address,city,state,zip,phone,email);
+		this.type = type;
+	}
+	
+	public AddressBookData(int addressId,String firstName, String lastName, String address, String city, String state,
+			int zip, int phone, String email) {
+		this.addressId=addressId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -25,7 +32,8 @@ public class AddressBookData {
 		this.zip = zip;
 		this.phone = phone;
 		this.email = email;
-		this.type = type;
+		
+		
 	}
 
 	public AddressBookData(int addressId, String firstName, String address, int zip) {
