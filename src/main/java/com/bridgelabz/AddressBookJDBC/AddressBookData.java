@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class AddressBookData {
 
-	public int addressId;
+	public int id;
 	public String firstName;
 	public String lastName;
 	public String address;
@@ -23,7 +23,7 @@ public class AddressBookData {
 	
 	public AddressBookData(int addressId,String firstName, String lastName, String address, String city, String state,
 			int zip, int phone, String email) {
-		this.addressId=addressId;
+		this.id=addressId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -37,7 +37,7 @@ public class AddressBookData {
 	}
 
 	public AddressBookData(int addressId, String firstName, String address, int zip) {
-		this.addressId = addressId;
+		this.id = addressId;
 		this.firstName = firstName;
 		this.address = address;
 		this.zip = zip;
@@ -63,7 +63,7 @@ public class AddressBookData {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (addressId != other.addressId)
+		if (id != other.id)
 			return false;
 		if (city == null) {
 			if (other.city != null)
@@ -104,7 +104,7 @@ public class AddressBookData {
 
 	@Override
 	public String toString() {
-		return "AddressBookData [addressId=" + addressId + ", firstName=" + firstName + ", lastName=" + lastName
+		return "AddressBookData [addressId=" + id + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phone=" + phone
 				+ ", email=" + email + ", type=" + type + "]";
 	}

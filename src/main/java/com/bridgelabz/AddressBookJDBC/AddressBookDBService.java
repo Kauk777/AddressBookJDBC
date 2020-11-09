@@ -25,6 +25,7 @@ public class AddressBookDBService {
 		return addressDBService;
 	}
 
+	// Establising JDBC connection
 	private Connection getConnection() throws SQLException {
 		String jdbcURL = "jdbc:mysql://localhost:3306/addressbook_service?useSSL=false";
 		String user = "root";
@@ -38,11 +39,13 @@ public class AddressBookDBService {
 		return connection;
 	}
 
+	// JDBC connection to retreive data
 	public List<AddressBookData> read() {
 		String sql = "SELECT * FROM address_book;";
 		return this.readQuery(sql);
 	}
 
+	// JDBC connection to retreive data by city or state
 	public List<AddressBookData> readByStateOrCity(String city, String state) {
 		String sql = "SELECT * FROM address_book where city=? or state=?;";
 		return this.readQuery(sql, city, state);
@@ -88,6 +91,7 @@ public class AddressBookDBService {
 		return addressDBList;
 	}
 
+	// JDBC Connection to update AddressBook
 	public int updateData(String firstName, String address, int zip) throws SQLException {
 		return this.updateAddressData(firstName, address);
 	}
@@ -103,6 +107,7 @@ public class AddressBookDBService {
 		return 0;
 	}
 
+	// Getting AddressList
 	public List<AddressBookData> getAddressList(String name) {
 		List<AddressBookData> addressList = null;
 		if (this.addressDataStatement == null)
@@ -127,8 +132,9 @@ public class AddressBookDBService {
 		}
 	}
 
+	// JDBC connection to add data
 	public AddressBookData addData(String firstName, String lastName, String address, String city, String state,
-			int zip, int phone, String email, String type) {
+			int zip, int phone, String email, String type) throws AddressBookException {
 		int addressId = -1;
 		Connection connection = null;
 		AddressBookData addressData = null;
@@ -151,7 +157,8 @@ public class AddressBookDBService {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new AddressBookException("DB File Problem",
+					AddressBookException.ExceptionType.ADDRESSBOOK_DB_PROBLEM);
 		}
 
 		return addressData;
